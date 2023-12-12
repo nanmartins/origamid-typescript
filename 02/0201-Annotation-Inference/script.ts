@@ -1,6 +1,3 @@
-document.body.style.background = 'black'
-document.body.style.color = 'white'
-document.body.style.padding = '10px 20px'
 
 // let produto: string = 'Livro'
 // const preco: number = 25
@@ -44,33 +41,34 @@ const transformarPreco = (produto: { nome: string, preco: string}) => {
   return produto
 }
 
-const normalizeText = (text: string): string => {
-  return text.trim().toLowerCase()
-}
-
-// console.log(normalizeText('   TESTE   '))
-
-// const body = document.body
-// body.style.backgroundColor = 'black'
+console.log(transformarPreco(nintendo))
 
 
-/////////////////////EXERCICIO /////////////////////////////
 
+//////////////////////////////////////////////////////////
 const input = document.querySelector('input');
 
 const total = localStorage.getItem('total');
-input.value = total;
-calcularGanho(input.value);
+if(input && total) {
+  input.value = total;
+  calcularGanho(Number(input.value));
+}
 
-function calcularGanho(value) {
+function calcularGanho(value: number) {
   const p = document.querySelector('p');
-  p.innerText = `ganho total: ${value + 100 - value * 0.2}`;
+  if(p) {
+    p.innerText = `ganho total: ${value + 100 - value * 0.2}`;
+  }
 }
 
 function totalMudou() {
-  const value = Number(input.value);
-  localStorage.setItem('total', value);
-  calcularGanho(value);
+  if(input) {
+    const value = Number(input.value);
+    localStorage.setItem('total', input.value);
+    calcularGanho(Number(input.value));
+  }
 }
 
-input.addEventListener('keyup', totalMudou);
+if(input) {
+  input.addEventListener('keyup', totalMudou);
+}
