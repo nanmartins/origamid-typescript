@@ -1,4 +1,7 @@
 "use strict";
+document.body.style.background = 'black';
+document.body.style.color = 'white';
+document.body.style.padding = '10px 20px';
 // let produto: string = 'Livro'
 // const preco: number = 25
 const produto = 'Livro';
@@ -32,4 +35,24 @@ const transformarPreco = (produto) => {
     produto.preco = `R$ ${produto.preco}`;
     return produto;
 };
-console.log(transformarPreco(nintendo));
+const normalizeText = (text) => {
+    return text.trim().toLowerCase();
+};
+// console.log(normalizeText('   TESTE   '))
+// const body = document.body
+// body.style.backgroundColor = 'black'
+/////////////////////EXERCICIO /////////////////////////////
+const input = document.querySelector('input');
+const total = localStorage.getItem('total');
+input.value = total;
+calcularGanho(input.value);
+function calcularGanho(value) {
+    const p = document.querySelector('p');
+    p.innerText = `ganho total: ${value + 100 - value * 0.2}`;
+}
+function totalMudou() {
+    const value = Number(input.value);
+    localStorage.setItem('total', value);
+    calcularGanho(value);
+}
+input.addEventListener('keyup', totalMudou);
