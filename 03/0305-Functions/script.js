@@ -42,10 +42,13 @@ function normalize(value) {
 function $(seletor) {
     return document.querySelector(seletor);
 }
-// console.log($('a'))
-// console.log($('video'))
-// console.log($('.link'))
-////////////////////////////////////////////////////////////////////////////////
-// Crie uma função que arredonda um valor passado para cima.
-// A função pode receber string ou number.
-// A função deve retornar o mesmo tipo que ela receber.
+function roundUp(value) {
+    if (typeof value === 'string') {
+        return Math.ceil(Number(value)).toString();
+    }
+    else {
+        return Math.ceil(value);
+    }
+}
+console.log(roundUp('2.3'));
+console.log(roundUp(2.11));

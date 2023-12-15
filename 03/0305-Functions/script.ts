@@ -84,3 +84,16 @@ function $(seletor: string): Element | null {
 // Crie uma função que arredonda um valor passado para cima.
 // A função pode receber string ou number.
 // A função deve retornar o mesmo tipo que ela receber.
+function roundUp(value: string): string
+function roundUp(value: number): number
+function roundUp(value: number | string): string | number {
+  if(typeof value === 'string') {
+    return Math.ceil(Number(value)).toString()
+  }
+  else {
+    return Math.ceil(value)
+  }
+}
+
+console.log(roundUp('2.3'))
+console.log(roundUp(2.11))
