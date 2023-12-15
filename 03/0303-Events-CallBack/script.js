@@ -1,6 +1,5 @@
 "use strict";
 console.log('connected...');
-document.body.style.background = '#333';
 // ----------------------------------------------
 // const button = document.querySelector('button')
 // const handleClick = (event: PointerEvent) => {
@@ -35,11 +34,38 @@ document.body.style.background = '#333';
 //   console.log(event)
 // }
 // button?.addEventListener('click', handleClick)
-const button = document.querySelector('button');
-function handleClick(event) {
-    const target = event.currentTarget;
-    if (target instanceof HTMLElement) {
-        console.log(target.innerHTML);
+// const button = document.querySelector('button')
+// function handleClick(event: MouseEvent) {
+//   const target = event.currentTarget
+//   if(target instanceof HTMLElement) {
+//     console.log(target.innerHTML)
+//   }
+// }
+// button?.addEventListener('click', handleClick)
+////////////////////////////////////////////////////
+// Utilizando a estrutura HTML/CSS abaixo, crie o script que irá fazer o botão mobile funcionar (ativar/desativar a navegação).
+// Estado dos elementos
+// menu inativo:
+// class="" em nav
+// aria-expanded="false" em button
+// aria-label="Abrir Menu" em button
+// menu ativo:
+// class="active" em nav
+// aria-expanded="true" em button
+// aria-label="Fechar Menu" em button
+const nav = document.getElementById('nav');
+const hamburger = document.getElementById('btn-mobile');
+const handleClick = () => {
+    if (hamburger instanceof HTMLButtonElement && nav instanceof HTMLElement) {
+        nav.classList.toggle('active');
+        if (nav.classList.contains('active')) {
+            hamburger.ariaExpanded = 'true';
+            hamburger.ariaLabel = 'Fechar Menu';
+        }
+        else {
+            hamburger.ariaExpanded = 'false';
+            hamburger.ariaLabel = 'Abrir Menu';
+        }
     }
-}
-button?.addEventListener('click', handleClick);
+};
+hamburger?.addEventListener('pointerdown', handleClick);
