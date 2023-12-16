@@ -75,8 +75,46 @@ document.body.style.background = '#555'
 
 async function fetchAPI() {
   const response = await fetch('https://api.origamid.dev/json/cursos.json')
-  const json = await response.json()
-  console.log(json)
+  const data = await response.json()
+  console.log(data)
+  handleFetch(data)
+}
+fetchAPI()
+
+interface Cursos {
+  // aulas: number;
+  // gratuito: boolean;
+  // idAulas: number[];
+  // nivel: "iniciante" | "avancado";
+  horas: number;
+  nome: string;
+  tags: string[];
 }
 
-fetchAPI()
+
+function isCursos(data: unknown): data is Cursos {
+  if(data && typeof data === 'object' && 'nome' in data && 'horas' in data && 'tags' in data) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+function handleFetch(data: unknown) {
+  if(Array.isArray(data)) {
+    data.filter(isCursos).forEach(curso => {
+      document.body.innerHTML += `
+        <h2>${curso.nome}</h2>
+        <p>Horas: ${curso.horas}</p>
+        <p>Tags: ${curso.tags.join(', ')}</p>
+        <hr>
+      `
+    })
+  }
+}
+
+
+// <p>Aulas: ${curso.aulas}</p>
+// <p>Nível: ${curso.nivel}</p>
+// <p>Gratuito: ${curso.gratuito ? 'Sim' : 'Não'}</p>
