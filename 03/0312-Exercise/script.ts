@@ -16,19 +16,25 @@ const form = document.getElementById('form') as HTMLFormElement
 form.addEventListener('keyup', (event) => {
   // console.log(event)
   if(event !== null && event.key === 'Enter' && event.target instanceof HTMLInputElement) {
-    console.log(typeof event.target.id)
+    console.log(event.target.id)
     console.log(event.target.value)
     handleData(event.target)
   }
 })
 
+const userData: UserData = {
+  nome: '',
+  email: '',
+  cpf: ''
+}
+
 function handleData(input: HTMLInputElement) {
-  const userData: UserData = {
-    nome: input.value,
-    email: input.value,
-    cpf: input.value
-  }
+
+  if(input.id === 'nome') userData.nome = input.value
+  if(input.id === 'email') userData.email = input.value
+  if(input.id === 'cpf') userData.cpf = input.value
   localStorage.setItem('userData', JSON.stringify(userData))
+  console.log(userData)
 }
 
 interface UserData {
@@ -36,3 +42,13 @@ interface UserData {
   email: string;
   cpf: string;
 }
+
+window.addEventListener('load', () => {
+  const data = localStorage.getItem('userData')
+  if(data) {
+    const userData: UserData = JSON.parse(data)
+    form.nome.value = userData.nome
+    form.email.value = userData.email
+    form.cpf.value = userData.cpf
+  }
+})
